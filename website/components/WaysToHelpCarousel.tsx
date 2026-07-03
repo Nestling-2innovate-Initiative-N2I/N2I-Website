@@ -66,23 +66,14 @@ export default function WaysToHelpCarousel() {
                   (e.currentTarget.closest(".marquee-track") as HTMLElement).style.animationPlayState = "running";
                 }}
               >
-                {w.img ? (
-                  <div
-                    className="w-full h-48"
-                    style={{
-                      backgroundImage:    `url('${w.img}')`,
-                      backgroundSize:     "cover",
-                      backgroundPosition: "center",
-                    }}
-                  />
-                ) : (
-                  <div
-                    className="w-full h-48 flex items-center justify-center text-5xl"
-                    style={{ backgroundColor: "var(--muted)" }}
-                  >
-                    {w.icon}
-                  </div>
-                )}
+                <div
+                  className="w-full h-48"
+                  style={{
+                    backgroundImage:    `url('${w.img}')`,
+                    backgroundSize:     "cover",
+                    backgroundPosition: "center",
+                  }}
+                />
                 <div className="p-6 flex flex-col flex-1 items-center text-center">
                   <h3 className="text-lg font-bold font-sans mb-3" style={{ color: "var(--navy)" }}>
                     {w.title}
