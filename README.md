@@ -1,36 +1,42 @@
-# BEEVIF — Baiden Etsiakoh Eagle Vision Foundation
+<p align="center">
+  <img src="banner.png" alt="BEEVIF website preview" width="100%" />
+</p>
 
-> *Fighting poverty, poor health, and ignorance in rural Ghana — one family at a time.*
+<h1 align="center">BEEVIF</h1>
+<p align="center"><strong>Baiden Etsiakoh Eagle Vision Foundation</strong></p>
+<p align="center"><em>Fighting poverty, poor health, and ignorance in rural Ghana — one family at a time.</em></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Deployed_on-Vercel-black?logo=vercel" alt="Vercel" />
+</p>
 
 ---
 
-## About the Project
+## About
 
-This is the official website for the **Baiden Etsiakoh Eagle Vision Foundation (BEEVIF)**, a registered non-profit organisation based in Ghana. The site serves as a digital home for the foundation — showcasing its programmes, impact, team, and providing pathways for donors, sponsors, and volunteers to get involved.
-
----
-
-## 🌍 What BEEVIF Does
+The official website for the **Baiden Etsiakoh Eagle Vision Foundation (BEEVIF)**, a registered non-profit based in Ghana. It's the foundation's digital home — showcasing programmes, impact, and leadership, and giving donors, sponsors, and volunteers a way to get involved.
 
 BEEVIF operates across three core pillars:
 
 | Pillar | Focus |
 |---|---|
-| 📚 Education | Schools, scholarships, and digital skills training |
-| 🏥 Health | Free medical outreach in rural communities |
-| 🌾 Food Security | Clothing drives, relief distribution, and nutrition programmes |
-
----
+| Education | Schools, scholarships, and digital skills training |
+| Health | Free medical outreach in rural communities |
+| Food Security | Clothing drives, relief distribution, and nutrition programmes |
 
 ## Pages
 
-- **Home** — Hero slideshow, mission overview, impact stats, testimonials
-- **About** — Foundation story, core values, leadership team
-- **Our Work** — Detailed breakdown of all six active programmes
-- **Get Involved** — Sponsorship, donations, and volunteering opportunities
-- **Contact** — Contact form, phone, email, and address
-
----
+| Page | Contents |
+|---|---|
+| **Home** | Hero slideshow, mission overview, impact stats, testimonials |
+| **About** | Foundation story, core values, leadership team |
+| **Our Work** | Breakdown of all six active programmes |
+| **Get Involved** | Sponsorship, donations, and volunteering |
+| **Contact** | Contact form, phone, email, and address |
 
 ## Tech Stack
 
@@ -42,40 +48,25 @@ BEEVIF operates across three core pillars:
 | Tailwind CSS 4 | Styling |
 | React Icons | Icon set |
 | Formspree | Contact form handling |
-
----
+| Vercel | Hosting & deployment |
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js 18+
-- npm
-
-### Installation
-
 ```bash
-git clone https://github.com/your-username/beevif.git
-cd beevif/website
+git clone https://github.com/AdikaNathaniel/BEEVIF.git
+cd BEEVIF/website
 npm install
-```
-
-### Development
-
-```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000).
 
-### Production Build
+**Production build:**
 
 ```bash
 npm run build
 npm run start
 ```
-
----
 
 ## Project Structure
 
@@ -89,32 +80,17 @@ BEEVIF/
 │   │   ├── get-involved/
 │   │   └── contact/
 │   ├── components/           # Reusable client components
-│   │   ├── Navbar.tsx
-│   │   ├── Footer.tsx
-│   │   ├── HeroSlideshow.tsx
-│   │   ├── SectionHeading.tsx
-│   │   ├── MissionSection.tsx
-│   │   ├── WorkProgrammes.tsx
-│   │   ├── LeadershipSection.tsx
-│   │   ├── WaysToHelpCarousel.tsx
-│   │   ├── VolunteerSection.tsx
-│   │   └── LivesTouched.tsx
-│   └── public/
-│       └── images/           # All image assets
+│   └── public/images/        # Image assets
 └── images/                   # Source image library
 ```
 
----
-
 ## Key Features
 
-- ✨ **Hero Slideshow** — 9 rotating background images with Ken Burns zoom effect and smooth crossfade transitions (15s interval)
-- 🎞 **Scroll Animations** — Section headings converge from opposite sides; programme cards slide in from left and right; team cards drop in with staggered cascade
-- ♾ **Infinite Carousel** — Ways to Help cards scroll horizontally in a continuous loop, pausing on hover
-- 📱 **Fully Responsive** — Mobile-first design with Tailwind breakpoints
-- 🎨 **Brand Consistent** — Navy (`#1B3A6B`) and Coral (`#E8652A`) throughout
-
----
+- **Hero Slideshow** — 9 rotating background images with Ken Burns zoom and crossfade transitions
+- **Scroll Animations** — Section headings, programme cards, and team cards animate into view
+- **Infinite Carousel** — "Ways to Help" cards scroll horizontally, pausing on hover
+- **Fully Responsive** — Mobile-first, built with Tailwind breakpoints
+- **On-brand** — Navy (`#1B3A6B`) and Coral (`#E8652A`) throughout
 
 ## Brand Colours
 
@@ -125,27 +101,20 @@ BEEVIF/
 | Navy Dark | `#122848` |
 | Coral Dark | `#c94f18` |
 
----
-
 ## Contact
 
 | Channel | Details |
 |---|---|
-| 📞 Phone | +233 30242 3348 |
-| ✉ Email | info@beevif.org |
-| 📍 Address | P.O Box AN15698, Accra-North, Ghana |
+| Phone | +233 30242 3348 |
+| Email | info@beevif.org |
+| Address | P.O Box AN15698, Accra-North, Ghana |
 
 ---
 
-## ❤️ Built for BEEVIF Volunteers
+<p align="center">
+Built as a volunteering effort in support of BEEVIF's mission to empower communities across rural Ghana through education, healthcare, and food security.
+</p>
 
-This website was designed and developed as part of a **volunteering effort** in support of the Baiden Etsiakoh Eagle Vision Foundation. Every line of code represents a contribution to the foundation's mission of empowering communities across rural Ghana through education, healthcare, and food security.
+<p align="center"><em>"We thrive to fight poverty, poor health, and ignorance among rural dwellers while spreading the gospel of hope across Ghana." — BEEVIF Foundation</em></p>
 
-If you are a developer, designer, or communicator who wants to contribute to this project, please reach out to the foundation directly — your skills can change lives.
-
-> *"We thrive to fight poverty, poor health, and ignorance among rural dwellers while spreading the gospel of hope across Ghana."*
-> — BEEVIF Foundation
-
----
-
-*This project is maintained in collaboration with BEEVIF. All rights reserved © Baiden Etsiakoh Eagle Vision Foundation.*
+<p align="center">© Baiden Etsiakoh Eagle Vision Foundation. All rights reserved.</p>
