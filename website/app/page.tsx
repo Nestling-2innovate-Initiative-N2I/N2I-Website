@@ -76,11 +76,18 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <SectionHeading label="Who We Are" heading="About Us" className="mb-10" />
           <p className="text-gray-600 leading-relaxed text-center mb-12">
-            Baiden Etsiakoh Eagle Vision Foundation (BEEVIF) is a dedicated non-governmental
-            organization based in Accra, Ghana, committed to uplifting underprivileged communities
-            through initiatives in education, health, and food security. Co-founded by individuals
-            including Hannah Etsiakoh, who also serves as Vice President, BEEVIF operates with a
-            vision to create sustainable and positive change in society.
+            The Baiden Etsiakoh Eagle Vision Foundation (BEEVIF) is a Ghana-registered charitable
+            foundation based in Tantra Hills, Accra. Our primary initiative, Nestling 2Innovate
+            (N2I), delivers STEM, digital skills, and artificial intelligence education to
+            school-age children and out-of-school youth in under-resourced communities. Operating
+            from the Special Grace Academy (SGA) campus, N2I serves 172 learners while extending
+            reach to neighboring schools and Senior High School graduates. Since 2025, we have
+            successfully run four proof-of-concept programs in web design, global virtual
+            internships, programming, and AI literacy — notably producing one of the first Google
+            Gemini AI Certified (K12) students in Ghana. We are now scaling these pilots into a
+            permanent Community STEM Innovation Centre and a structured digital-and-AI skills
+            pipeline, including expanding access to quality education for rural areas with
+            internet constraints.
           </p>
 
           <div className="border-t border-gray-200 pt-12">
