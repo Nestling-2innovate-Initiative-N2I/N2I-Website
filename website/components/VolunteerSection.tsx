@@ -44,7 +44,7 @@ export default function VolunteerSection() {
             serve.
           </p>
           <a
-            href="https://forms.google.com"
+            href="https://forms.gle/4ry4xDKefR5ZzRRe9"
             target="_blank"
             rel="noopener noreferrer"
             style={{ backgroundColor: "var(--navy)" }}

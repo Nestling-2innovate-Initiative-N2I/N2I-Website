@@ -29,7 +29,7 @@ const ways = [
     title: "Volunteer",
     desc: "Your time and skills can lead to lasting improvements in the well-being of communities. Whether you are a teacher, doctor, builder, or organiser — we welcome your involvement.",
     cta: "SIGN UP",
-    href: "https://forms.google.com",
+    href: "https://forms.gle/4ry4xDKefR5ZzRRe9",
   },
 ];
 
