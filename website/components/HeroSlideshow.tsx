@@ -3,112 +3,211 @@
 import { useEffect, useState } from "react";
 
 const IMAGES = [
-  "/images/Background-1.jpeg",
-  "/images/1.jpeg",
-  "/images/2.jpeg",
-  "/images/3.jpeg",
-  "/images/4.jpeg",
-  "/images/5.jpeg",
-  "/images/6.jpeg",
-  "/images/7.jpeg",
-  "/images/8.jpeg",
+  "/images/hero-1.jpg",
+  "/images/hero-2.jpg",
+  "/images/hero-3.jpg",
+  "/images/hero-4.jpg",
+  "/images/hero-5.jpg",
+  "/images/hero-6.jpg",
+  "/images/hero-7.jpg",
+  "/images/hero-8.jpg",
+  "/images/hero-9.jpg",
+  "/images/hero-10.jpg",
+  "/images/hero-11.jpg",
 ];
 
-const KEN_BURNS = [
-  { start: "scale(1.08) translate(0%, 0%)",   end: "scale(1.18) translate(-3%, -2%)" },
-  { start: "scale(1.12) translate(2%, 1%)",    end: "scale(1.05) translate(-2%, 1%)" },
-  { start: "scale(1.06) translate(-2%, 2%)",   end: "scale(1.15) translate(3%, -1%)" },
-  { start: "scale(1.10) translate(1%, -2%)",   end: "scale(1.04) translate(-1%, 2%)" },
-  { start: "scale(1.08) translate(-1%, 1%)",   end: "scale(1.16) translate(2%, -2%)" },
-  { start: "scale(1.14) translate(2%, -1%)",   end: "scale(1.06) translate(-3%, 1%)" },
-  { start: "scale(1.07) translate(-2%, -1%)",  end: "scale(1.13) translate(1%, 3%)"  },
-  { start: "scale(1.11) translate(0%, 2%)",    end: "scale(1.05) translate(3%, -1%)" },
-  { start: "scale(1.09) translate(1%, 1%)",    end: "scale(1.17) translate(-2%, -3%)" },
+const MOVEMENTS = [
+  {
+    from: "scale(1.08) translate(0%, 0%)",
+    to: "scale(1.15) translate(-2%, -1%)",
+  },
+  {
+    from: "scale(1.12) translate(-2%, 0%)",
+    to: "scale(1.06) translate(2%, 1%)",
+  },
+  {
+    from: "scale(1.07) translate(1%, -1%)",
+    to: "scale(1.14) translate(-1%, 2%)",
+  },
+  {
+    from: "scale(1.10) translate(-1%, 1%)",
+    to: "scale(1.07) translate(2%, -1%)",
+  },
+  {
+    from: "scale(1.08) translate(2%, 0%)",
+    to: "scale(1.15) translate(-2%, 1%)",
+  },
+  {
+    from: "scale(1.11) translate(-1%, -1%)",
+    to: "scale(1.06) translate(2%, 2%)",
+  },
+  {
+    from: "scale(1.07) translate(0%, 2%)",
+    to: "scale(1.14) translate(-2%, -1%)",
+  },
+  {
+    from: "scale(1.10) translate(2%, -1%)",
+    to: "scale(1.06) translate(-1%, 2%)",
+  },
+  {
+    from: "scale(1.08) translate(-2%, 1%)",
+    to: "scale(1.15) translate(1%, -1%)",
+  },
+  {
+    from: "scale(1.09) translate(1%, 0%)",
+    to: "scale(1.06) translate(-2%, 1%)",
+  },
+  {
+    from: "scale(1.07) translate(-1%, -1%)",
+    to: "scale(1.14) translate(2%, 0%)",
+  },
 ];
 
-export default function HeroSlideshow({ children }: { children: React.ReactNode }) {
+export default function HeroSlideshow({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [current, setCurrent] = useState(0);
-  const [prev, setPrev]       = useState<number | null>(null);
-  const [animKey, setAnimKey] = useState(0);
+  const [previous, setPrevious] = useState<number | null>(null);
+  const [transitioning, setTransitioning] = useState(false);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setCurrent((c) => {
-        setPrev(c);
-        setAnimKey((k) => k + 1);
-        return (c + 1) % IMAGES.length;
-      });
-    }, 15000);
-    return () => clearInterval(id);
-  }, []);
+    const interval = setInterval(() => {
+      setPrevious(current);
+      setTransitioning(true);
+
+      setTimeout(() => {
+        setCurrent((value) => (value + 1) % IMAGES.length);
+        setTransitioning(false);
+      }, 1600);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [current]);
+
+  const goToSlide = (index: number) => {
+    if (index === current || transitioning) return;
+
+    setPrevious(current);
+    setTransitioning(true);
+
+    setTimeout(() => {
+      setCurrent(index);
+      setTransitioning(false);
+    }, 1600);
+  };
+
+  const movement = MOVEMENTS[current];
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center text-center px-4 overflow-hidden">
+    <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden">
 
-      {/* Previous image fades out */}
-      {prev !== null && (
+      {/* Current image */}
+      <div
+        key={`current-${current}`}
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url("${IMAGES[current]}")`,
+          animation: "heroZoom 10s ease-out forwards",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Previous image during transition */}
+      {previous !== null && transitioning && (
         <div
-          key={`prev-${animKey}`}
-          className="absolute inset-0"
+          key={`previous-${previous}`}
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage:    `url('${IMAGES[prev]}')`,
-            backgroundSize:     "cover",
-            backgroundPosition: "center",
-            animation:          "slideFadeOut 1.8s ease-in-out forwards",
-            transform:          KEN_BURNS[prev].end,
+            backgroundImage: `url("${IMAGES[previous]}")`,
+            animation: "heroFadeOut 1.6s ease-in-out forwards",
+            zIndex: 2,
           }}
         />
       )}
 
-      {/* Current image fades in with Ken Burns */}
+      {/* Professional dark gradient */}
       <div
-        key={`curr-${animKey}`}
-        className="absolute inset-0"
+        className="absolute inset-0 z-[3]"
         style={{
-          backgroundImage:    `url('${IMAGES[current]}')`,
-          backgroundSize:     "cover",
-          backgroundPosition: "center",
-          animation:          `slideFadeIn 1.8s ease-in-out forwards, kenBurns${animKey % 2} 17s ease-in-out forwards`,
-          transform:          KEN_BURNS[current].start,
+          background:
+            "linear-gradient(90deg, rgba(8,24,45,0.82) 0%, rgba(8,24,45,0.58) 42%, rgba(8,24,45,0.25) 100%)",
         }}
       />
 
-      {/* Dot indicators */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {IMAGES.map((_, i) => (
+      {/* Bottom gradient */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-40 z-[4]"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(8,24,45,0.55), transparent)",
+        }}
+      />
+
+      {/* Website content */}
+      <div className="relative z-10 w-full px-4">
+        {children}
+      </div>
+
+      {/* Slide indicators */}
+      <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
+        {IMAGES.map((_, index) => (
           <button
-            key={i}
-            onClick={() => { setPrev(current); setCurrent(i); setAnimKey((k) => k + 1); }}
-            aria-label={`Go to slide ${i + 1}`}
-            className="rounded-full transition-all duration-500"
+            key={index}
+            onClick={() => goToSlide(index)}
+            aria-label={`Go to slide ${index + 1}`}
+            className="h-1.5 rounded-full transition-all duration-700"
             style={{
-              width:           i === current ? "24px" : "8px",
-              height:          "8px",
-              backgroundColor: i === current ? "var(--coral)" : "rgba(255,255,255,0.5)",
+              width: index === current ? "32px" : "7px",
+              backgroundColor:
+                index === current
+                  ? "var(--coral)"
+                  : "rgba(255,255,255,0.55)",
             }}
           />
         ))}
       </div>
 
-      {/* Content */}
-      <div className="relative z-20 w-full">{children}</div>
-
       <style>{`
-        @keyframes slideFadeIn {
-          from { opacity: 0; }
-          to   { opacity: 1; }
+        @keyframes heroZoom {
+          from {
+            opacity: 0;
+            transform: ${movement.from};
+          }
+
+          15% {
+            opacity: 1;
+          }
+
+          to {
+            opacity: 1;
+            transform: ${movement.to};
+          }
         }
-        @keyframes slideFadeOut {
-          from { opacity: 1; }
-          to   { opacity: 0; }
+
+        @keyframes heroFadeOut {
+          from {
+            opacity: 1;
+          }
+
+          to {
+            opacity: 0;
+          }
         }
-        @keyframes kenBurns0 {
-          from { transform: ${KEN_BURNS[0].start}; }
-          to   { transform: ${KEN_BURNS[0].end};   }
-        }
-        @keyframes kenBurns1 {
-          from { transform: ${KEN_BURNS[1].start}; }
-          to   { transform: ${KEN_BURNS[1].end};   }
+
+        @media (prefers-reduced-motion: reduce) {
+          @keyframes heroZoom {
+            from {
+              opacity: 0;
+              transform: scale(1);
+            }
+
+            to {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
         }
       `}</style>
     </section>
