@@ -1,13 +1,15 @@
+
+
 @import "tailwindcss";
 
 :root {
-  --navy: #1B3A6B;
-  --coral: #E8652A;
-  --navy-dark: #122848;
-  --coral-dark: #c94f18;
-  --background: #ffffff;
-  --foreground: #1a1a1a;
-  --muted: #f5f7fa;
+  --navy: #0B1F3A;
+  --coral: #2563EB;
+  --navy-dark: #06152A;
+  --coral-dark: #1D4ED8;
+  --background: #F7FAFC;
+  --foreground: #172033;
+  --muted: #EAF1F8;
 }
 
 body {
