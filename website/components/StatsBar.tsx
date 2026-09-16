@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 const stats = [
   { target: 600, suffix: "+", label: "People clothed" },
-  { target: 5,   suffix: "",  label: "Washrooms built" },
-  { target: 10,  suffix: "+", label: "Years of service" },
+  { target: 5, suffix: "", label: "Washrooms built" },
+  { target: 10, suffix: "+", label: "Years of service" },
   { target: 1000, suffix: "s", label: "Lives impacted" },
 ];
 
@@ -14,29 +14,62 @@ function useCountUp(target: number, active: boolean, duration = 1800) {
 
   useEffect(() => {
     if (!active) return;
+
     let start: number | null = null;
+
     const step = (timestamp: number) => {
       if (!start) start = timestamp;
+
       const progress = Math.min((timestamp - start) / duration, 1);
-      // ease-out cubic
+
+      // Smooth ease-out animation
       const eased = 1 - Math.pow(1 - progress, 3);
+
       setCount(Math.floor(eased * target));
-      if (progress < 1) requestAnimationFrame(step);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
     };
+
     requestAnimationFrame(step);
   }, [active, target, duration]);
 
   return count;
 }
 
-function StatItem({ target, suffix, label, active }: typeof stats[0] & { active: boolean }) {
+function StatItem({
+  target,
+  suffix,
+  label,
+  active,
+}: typeof stats[0] & { active: boolean }) {
   const count = useCountUp(target, active);
+
   return (
-    <div>
+    <div
+      className={`transform transition-all duration-700 ease-out ${
+        active
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-6"
+      }`}
+    >
+      {/* Number */}
       <div className="text-3xl font-bold font-sans tabular-nums">
-        {count}{suffix}
+        {count}
+        {suffix}
       </div>
-      <div className="text-sm mt-1 opacity-90 font-sans">{label}</div>
+
+      {/* Text */}
+      <div
+        className={`text-sm mt-1 opacity-90 font-sans transition-all duration-700 delay-300 ${
+          active
+            ? "opacity-90 translate-y-0"
+            : "opacity-0 translate-y-3"
+        }`}
+      >
+        {label}
+      </div>
     </div>
   );
 }
@@ -47,12 +80,21 @@ export default function StatsBar() {
 
   useEffect(() => {
     const el = ref.current;
+
     if (!el) return;
+
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setActive(true); obs.disconnect(); } },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setActive(true);
+          obs.disconnect();
+        }
+      },
       { threshold: 0.1 }
     );
+
     obs.observe(el);
+
     return () => obs.disconnect();
   }, []);
 

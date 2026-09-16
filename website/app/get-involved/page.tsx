@@ -1,7 +1,7 @@
 import VolunteerSection from "@/components/VolunteerSection";
 import WaysToHelpCarousel from "@/components/WaysToHelpCarousel";
 
-const HERO_BG = "/images/Get-Involved-Background.jpeg";
+const HERO_BG = "/images/children-support.jpg";
 
 
 export default function GetInvolved() {

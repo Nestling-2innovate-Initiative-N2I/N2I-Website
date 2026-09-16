@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     quote:
-      "We used to walk miles to school without proper books or meals. Thanks to BEEVIF, we now have school supplies, daily meals, and the support we need to focus on our education. We am forever grateful for this opportunity!",
+      "We used to walk miles to school without proper books or meals. Thanks to BEEVIF, we now have school supplies, daily meals, and the support we need to focus on our education. We are forever grateful for this opportunity!",
     name: "Emmanuel Taiwiah & Daniel Safoh",
     role: "Sponsored Students",
     photo: "/images/Sponsored-Student-Testimony.jpg",
@@ -33,12 +33,16 @@ const testimonials = [
   },
 ];
 
-// Duplicate for seamless loop
+// Duplicate testimonials to create a seamless infinite loop
 const track = [...testimonials, ...testimonials];
 
 export default function TestimonialsCarousel() {
   return (
-    <section className="py-20 px-4" style={{ backgroundColor: "var(--muted)" }}>
+    <section
+      className="py-20 px-4"
+      style={{ backgroundColor: "var(--muted)" }}
+    >
+      {/* Heading */}
       <div className="max-w-7xl mx-auto">
         <SectionHeading
           label="Testimonials"
@@ -48,35 +52,87 @@ export default function TestimonialsCarousel() {
         />
       </div>
 
-      {/* Marquee viewport — full bleed so cards flow edge to edge */}
+      {/* Carousel */}
       <div className="overflow-hidden">
-        <div className="testimonial-track flex gap-6" style={{ width: "max-content" }}>
+        <div
+          className="testimonial-track flex gap-6"
+          style={{ width: "max-content" }}
+        >
           {track.map((t, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl p-8 shadow-md border border-gray-100 flex flex-col"
-              style={{ width: "560px", flexShrink: 0 }}
+              className="
+                bg-white
+                rounded-2xl
+                p-8
+                shadow-md
+                border
+                border-gray-100
+                flex
+                flex-col
+                transform
+                transition-all
+                duration-300
+                ease-out
+                hover:-translate-y-2
+                hover:scale-[1.02]
+                hover:shadow-xl
+              "
+              style={{
+                width: "560px",
+                flexShrink: 0,
+              }}
               onMouseEnter={(e) => {
-                (e.currentTarget.closest(".testimonial-track") as HTMLElement).style.animationPlayState = "paused";
+                const trackElement = e.currentTarget.closest(
+                  ".testimonial-track"
+                ) as HTMLElement | null;
+
+                if (trackElement) {
+                  trackElement.style.animationPlayState = "paused";
+                }
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget.closest(".testimonial-track") as HTMLElement).style.animationPlayState = "running";
+                const trackElement = e.currentTarget.closest(
+                  ".testimonial-track"
+                ) as HTMLElement | null;
+
+                if (trackElement) {
+                  trackElement.style.animationPlayState = "running";
+                }
               }}
             >
+              {/* Quote */}
               <p className="text-gray-600 italic leading-relaxed flex-1 mb-6">
                 &ldquo;{t.quote}&rdquo;
               </p>
+
+              {/* Person */}
               <div className="flex items-center gap-3">
                 <img
                   src={t.photo}
                   alt={t.name}
-                  className="w-12 h-12 rounded-full object-cover shrink-0"
+                  className="
+                    w-12
+                    h-12
+                    rounded-full
+                    object-cover
+                    shrink-0
+                    ring-2
+                    ring-gray-100
+                  "
                 />
+
                 <div>
-                  <div className="font-bold font-sans text-sm" style={{ color: "var(--navy)" }}>
+                  <div
+                    className="font-bold font-sans text-sm"
+                    style={{ color: "var(--navy)" }}
+                  >
                     {t.name}
                   </div>
-                  <div className="text-xs text-gray-500">{t.role}</div>
+
+                  <div className="text-xs text-gray-500">
+                    {t.role}
+                  </div>
                 </div>
               </div>
             </div>
@@ -84,13 +140,20 @@ export default function TestimonialsCarousel() {
         </div>
       </div>
 
+      {/* Carousel Animation */}
       <style>{`
         .testimonial-track {
           animation: testimonialScroll 20s linear infinite;
         }
+
         @keyframes testimonialScroll {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
+          from {
+            transform: translateX(0);
+          }
+
+          to {
+            transform: translateX(-50%);
+          }
         }
       `}</style>
     </section>
