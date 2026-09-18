@@ -43,22 +43,24 @@ const programmes = [
 ];
 
 const tagColours: Record<string, string> = {
-  Education:      "#1B3A6B",
-  Health:         "#2e7d32",
+  Education: "#1B3A6B",
+  Health: "#2e7d32",
   "Food Security": "#e65100",
-  Leadership:     "#6a1b9a",
-  Relief:         "#b45309",
+  Leadership: "#6a1b9a",
+  Relief: "#b45309",
 };
 
 export default function WorkProgrammes() {
   const [visible, setVisible] = useState<boolean[]>(
     Array(programmes.length).fill(false)
   );
+
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observers = rowRefs.current.map((el, i) => {
       if (!el) return null;
+
       const obs = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
@@ -67,14 +69,17 @@ export default function WorkProgrammes() {
               next[i] = true;
               return next;
             });
+
             obs.disconnect();
           }
         },
         { threshold: 0.18 }
       );
+
       obs.observe(el);
       return obs;
     });
+
     return () => observers.forEach((o) => o?.disconnect());
   }, []);
 
@@ -87,76 +92,193 @@ export default function WorkProgrammes() {
         return (
           <div
             key={p.title}
-            ref={(el) => { rowRefs.current[i] = el; }}
+            ref={(el) => {
+              rowRefs.current[i] = el;
+            }}
             className="grid md:grid-cols-2 gap-10 items-stretch"
+            style={{
+              perspective: "1200px",
+            }}
           >
-            {/* Text — always slides in from the left */}
+            {/* Text */}
             <div
               className={flip ? "md:order-2" : ""}
               style={{
-                transform:      isIn ? "translateX(0)"    : "translateX(-90px)",
-                opacity:        isIn ? 1                  : 0,
-                transition:     "transform 0.85s cubic-bezier(0.22,1,0.36,1), opacity 0.85s ease",
+                transform: isIn
+                  ? "translateX(0) rotateY(0deg)"
+                  : "translateX(-90px) rotateY(-12deg)",
+                opacity: isIn ? 1 : 0,
+                transitionProperty: "transform, opacity",
+                transitionDuration: "0.9s",
+                transitionTimingFunction:
+                  "cubic-bezier(0.22,1,0.36,1)",
                 transitionDelay: "0s",
               }}
             >
               <span
-                className="inline-block px-3 py-1 rounded-full text-white text-xs font-bold font-sans mb-4"
-                style={{ backgroundColor: tagColours[p.tag] || "var(--navy)" }}
+                className="
+                  inline-block
+                  px-3
+                  py-1
+                  rounded-full
+                  text-white
+                  text-xs
+                  font-bold
+                  font-sans
+                  mb-4
+                  transition-all
+                  duration-300
+                  hover:scale-105
+                  hover:-translate-y-0.5
+                "
+                style={{
+                  backgroundColor:
+                    tagColours[p.tag] || "var(--navy)",
+                }}
               >
                 {p.tag}
               </span>
-              <h3 className="text-2xl font-bold font-sans mb-4" style={{ color: "var(--navy)" }}>
+
+              <h3
+                className="text-2xl font-bold font-sans mb-4"
+                style={{ color: "var(--navy)" }}
+              >
                 {p.title}
               </h3>
+
               <div className="space-y-3">
                 {p.body.split("\n\n").map((para, idx) => (
-                  <p key={idx} className="text-gray-600 leading-relaxed">{para}</p>
+                  <p
+                    key={idx}
+                    className="text-gray-600 leading-relaxed"
+                  >
+                    {para}
+                  </p>
                 ))}
               </div>
             </div>
 
-            {/* Image — always slides in from the right */}
+            {/* Image */}
             <div
-              className={`rounded-2xl overflow-hidden shadow-lg ${flip ? "md:order-1" : ""}`}
+              className={`
+                group
+                relative
+                rounded-3xl
+                overflow-hidden
+                shadow-lg
+                transition-all
+                duration-500
+                ease-out
+                hover:-translate-y-2
+                hover:shadow-2xl
+                ${flip ? "md:order-1" : ""}
+              `}
               style={{
-                transform:      isIn ? "translateX(0)"   : "translateX(90px)",
-                opacity:        isIn ? 1                 : 0,
-                transition:     "transform 0.85s cubic-bezier(0.22,1,0.36,1), opacity 0.85s ease",
+                transform: isIn
+                  ? "translateX(0) rotateY(0deg)"
+                  : "translateX(90px) rotateY(12deg)",
+                opacity: isIn ? 1 : 0,
+                transitionProperty:
+                  "transform, opacity, box-shadow",
+                transitionDuration: "0.9s",
+                transitionTimingFunction:
+                  "cubic-bezier(0.22,1,0.36,1)",
                 transitionDelay: "0.1s",
+                transformOrigin: "center",
+                backfaceVisibility: "hidden",
               }}
             >
-              <div
-                role="img"
-                aria-label={p.title}
-                className="w-full h-full min-h-72"
-                style={{
-                  backgroundImage:    `url('${p.img}')`,
-                  backgroundSize:     "cover",
-                  backgroundPosition: "center",
-                }}
-              />
+              <div className="relative w-full h-full min-h-72 overflow-hidden">
+                {/* Image */}
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    bg-cover
+                    bg-center
+                    transition-transform
+                    duration-700
+                    ease-out
+                    group-hover:scale-110
+                  "
+                  style={{
+                    backgroundImage: `url('${p.img}')`,
+                  }}
+                />
+
+                {/* Dark gradient on hover */}
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    opacity-0
+                    group-hover:opacity-100
+                    transition-opacity
+                    duration-500
+                  "
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(18,40,72,0.45), transparent 65%)",
+                  }}
+                />
+
+                {/* Light sweep */}
+                <div
+                  className="
+                    absolute
+                    inset-y-0
+                    -left-full
+                    w-1/2
+                    skew-x-[-20deg]
+                    bg-white/20
+                    group-hover:left-[140%]
+                    transition-all
+                    duration-1000
+                    ease-in-out
+                  "
+                />
+              </div>
             </div>
           </div>
         );
       })}
 
-      {/* YouTube video — below all programme cards */}
-      {programmes.filter(p => "video" in p).map(p => (
-        <div
-          key={"video" in p ? p.video : ""}
-          className="rounded-xl overflow-hidden shadow-md mt-8"
-          style={{ aspectRatio: "16/9" }}
-        >
-          <iframe
-            src={"video" in p ? p.video : ""}
-            title={p.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full"
-          />
-        </div>
-      ))}
+      {/* YouTube video */}
+      {programmes
+        .filter((p) => "video" in p)
+        .map((p) => (
+          <div
+            key={"video" in p ? p.video : ""}
+            className="
+              group
+              rounded-3xl
+              overflow-hidden
+              shadow-lg
+              mt-8
+              opacity-0
+              animate-[fadeSlideUp_0.9s_ease-out_0.2s_forwards]
+              transition-all
+              duration-500
+              hover:-translate-y-2
+              hover:shadow-2xl
+            "
+            style={{ aspectRatio: "16/9" }}
+          >
+            <iframe
+              src={"video" in p ? p.video : ""}
+              title={p.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="
+                w-full
+                h-full
+                transition-transform
+                duration-700
+                group-hover:scale-[1.02]
+              "
+            />
+          </div>
+        ))}
     </div>
   );
 }

@@ -43,50 +43,121 @@ export default function LeadershipSection() {
 
   useEffect(() => {
     const el = cardsRef.current;
+
     if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setCardsVisible(true); obs.disconnect(); } },
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setCardsVisible(true);
+          observer.disconnect();
+        }
+      },
       { threshold: 0.15 }
     );
-    obs.observe(el);
-    return () => obs.disconnect();
+
+    observer.observe(el);
+
+    return () => observer.disconnect();
   }, []);
 
   return (
     <section className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
 
-        <SectionHeading label="The Team" heading="Our Leadership Team" className="mb-14" />
+        {/* Section Heading */}
+        <SectionHeading
+          label="The Team"
+          heading="Our Leadership Team"
+          className="mb-14"
+        />
 
-        {/* Cards — drop from above, staggered */}
-        <div ref={cardsRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        {/* Leadership Cards */}
+        <div
+          ref={cardsRef}
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10"
+        >
           {leadership.map((person, i) => (
             <div
               key={person.name}
-              className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-lg transition-shadow"
+              className="
+                group
+                bg-white
+                rounded-3xl
+                overflow-hidden
+                border
+                border-gray-100
+                shadow-md
+                transition-all
+                duration-500
+                ease-out
+                hover:-translate-y-3
+                hover:shadow-2xl
+              "
               style={{
-                transform:       cardsVisible ? "translateY(0)"   : "translateY(-70px)",
-                opacity:         cardsVisible ? 1                 : 0,
-                transition:      "transform 0.7s cubic-bezier(0.22,1,0.36,1), opacity 0.6s ease",
-                transitionDelay: `${i * 0.12}s`,
+                opacity: cardsVisible ? 1 : 0,
+                transform: cardsVisible
+                  ? "translateY(0)"
+                  : "translateY(45px)",
+                transitionProperty: "transform, opacity, box-shadow",
+                transitionDuration: "0.8s",
+                transitionTimingFunction:
+                  "cubic-bezier(0.22, 1, 0.36, 1)",
+                transitionDelay: `${i * 0.15}s`,
               }}
             >
-              <div className="relative h-72 bg-gray-100">
+              {/* Profile Image */}
+              <div className="relative h-72 overflow-hidden bg-gray-100">
                 <Image
                   src={person.img}
                   alt={person.name}
                   fill
-                  className="object-cover object-top"
+                  className="
+                    object-cover
+                    object-top
+                    transition-transform
+                    duration-700
+                    ease-out
+                    group-hover:scale-105
+                  "
+                />
+
+                {/* Image Overlay */}
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    opacity-0
+                    group-hover:opacity-100
+                    transition-opacity
+                    duration-500
+                  "
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(18,40,72,0.25), transparent 55%)",
+                  }}
                 />
               </div>
-              <div className="p-6">
-                <h3 className="font-bold font-sans text-lg" style={{ color: "var(--navy)" }}>
+
+              {/* Card Content */}
+              <div className="p-7">
+                <h3
+                  className="font-bold font-sans text-lg mb-1"
+                  style={{ color: "var(--navy)" }}
+                >
                   {person.name}
                 </h3>
-                <p className="text-sm font-semibold mb-3" style={{ color: "var(--coral)" }}>
+
+                <p
+                  className="text-sm font-semibold mb-4"
+                  style={{ color: "var(--coral)" }}
+                >
                   {person.role}
                 </p>
-                <p className="text-gray-600 text-sm leading-relaxed">{person.bio}</p>
+
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {person.bio}
+                </p>
               </div>
             </div>
           ))}
