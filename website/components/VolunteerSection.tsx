@@ -120,7 +120,7 @@ export default function VolunteerSection() {
             aria-label="Volunteers at work"
             className="relative w-full h-80 overflow-hidden"
             style={{
-              backgroundImage: "url('/images/Volunteer.jpg')",
+              backgroundImage: "url('/images/volunteer.jpg')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -154,7 +154,7 @@ export default function VolunteerSection() {
                 group-hover:scale-110
               "
               style={{
-                backgroundImage: "url('/images/Volunteer.jpg')",
+                backgroundImage: "url('/images/volunteer.jpg')",
               }}
             />
           </div>
