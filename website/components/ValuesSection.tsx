@@ -10,7 +10,7 @@ const values = [
     desc: "We serve with empathy and deep care for every individual.",
   },
   {
-    img: "/images/empowerment 2.jpg",
+    img: "/images/Empowerment 2.jpg",
     title: "Empowerment",
     desc: "We equip communities with tools to create their own futures.",
   },
